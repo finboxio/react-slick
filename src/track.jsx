@@ -50,6 +50,7 @@ var getSlideStyle = function (spec) {
   return style;
 };
 
+
 var getKey = (child, fallbackKey) => {
     // key could be a zero
     return (child.key === null || child.key === undefined) ? fallbackKey : child.key;
@@ -64,6 +65,13 @@ var renderSlides = (spec) => {
   var child;
 
   React.Children.forEach(spec.children, (elem, index) => {
+    var childOnClickOptions = {
+      message: 'children',
+      index: index,
+      slidesToScroll: spec.slidesToScroll,
+      currentSlide: spec.currentSlide
+    };
+
     if (!spec.lazyLoad | (spec.lazyLoad && spec.lazyLoadedList.indexOf(index) >= 0)) {
       child = elem;
     } else {
@@ -83,7 +91,8 @@ var renderSlides = (spec) => {
       key: 'original' + getKey(child, index),
       'data-index': index,
       className: cssClasses,
-      style: assign({}, child.props.style || {}, childStyle)
+      style: assign({}, child.props.style || {}, childStyle),
+      onClick: spec.focusOnSelect.bind(null, childOnClickOptions)
     }));
 
     // variableWidth doesn't wrap properly.
@@ -96,7 +105,8 @@ var renderSlides = (spec) => {
           key: 'cloned' + getKey(child, key),
           'data-index': key,
           className: cssClasses,
-          style: assign({}, child.props.style || {}, childStyle)
+          style: assign({}, child.props.style || {}, childStyle),
+          onClick: this.props.focusOnSelect.bind(null, childOnClickOptions)
         }));
       }
 
@@ -106,7 +116,8 @@ var renderSlides = (spec) => {
           key: 'cloned' + getKey(child, key),
           'data-index': key,
           className: cssClasses,
-          style: assign({}, child.props.style || {}, childStyle)
+          style: assign({}, child.props.style || {}, childStyle),
+          onClick: this.props.focusOnSelect.bind(null, childOnClickOptions)
         }));
       }
     }
@@ -123,7 +134,7 @@ var renderSlides = (spec) => {
 
 export var Track = React.createClass({
   render: function () {
-    var slides = renderSlides(this.props);
+    var slides = renderSlides.call(this, this.props);
     return (
       <div className='slick-track' style={this.props.trackStyle}>
         { slides }
