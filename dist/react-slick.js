@@ -1532,6 +1532,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	var renderSlides = function renderSlides(spec) {
+	  var _this = this;
+
 	  var key;
 	  var slides = [];
 	  var preCloneSlides = [];
@@ -1581,7 +1583,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'data-index': key,
 	          className: cssClasses,
 	          style: (0, _objectAssign2.default)({}, child.props.style || {}, childStyle),
-	          onClick: undefined.props.focusOnSelect.bind(null, childOnClickOptions)
+	          onClick: _this.props.focusOnSelect.bind(null, childOnClickOptions)
 	        }));
 	      }
 
@@ -1592,7 +1594,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'data-index': key,
 	          className: cssClasses,
 	          style: (0, _objectAssign2.default)({}, child.props.style || {}, childStyle),
-	          onClick: undefined.props.focusOnSelect.bind(null, childOnClickOptions)
+	          onClick: _this.props.focusOnSelect.bind(null, childOnClickOptions)
 	        }));
 	      }
 	    }
