@@ -56,7 +56,7 @@ var getKey = (child, fallbackKey) => {
     return (child.key === null || child.key === undefined) ? fallbackKey : child.key;
 };
 
-var renderSlides = (spec) => {
+var renderSlides = function (spec) {
   var key;
   var slides = [];
   var preCloneSlides = [];
